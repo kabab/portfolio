@@ -61,91 +61,11 @@
       </div>
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/terminal.js"></script>
     <script>
-
       $(document).ready(function() {
         $('#cmd').focus();
       });
-      var cmds = {};
-
-      function init() {
-        cmds['help'] = help;
-        cmds['clear'] = clear;
-        cmds['age'] = age;
-        cmds['name'] = name;
-        cmds['skills'] = skills;
-      }
-
-      $('#cmd').keypress(function(e) {
-        if( e.which == 13) {
-         analyzeCmd();
-        }
-      });
-
-      function analyzeCmd() {
-        var cmd = $('#cmd').val();
-        $('#hist').append(cmd + '</br>'); 
-        
-        if(cmd.trim() == '') {
-          prompt();
-          return;
-        }
-        
-        if(cmds[cmd.trim()] == undefined ) {
-          error();
-        } else {
-          (cmds[cmd.trim()])();
-        }
-
-        prompt();
-        $('#cmd').val('');
-      }
-
-      function help() {
-        var txt = '</br>This is the help for this simple terminal.' +
-            'You can try some of this command to discovre more about my profile<br/><br>' + 
-            'name age skills blog apps contact clear </br></br>';
-        $('#hist').append(txt);
-      }
-      
-      function clear() {
-        $('#hist').text('');
-      }
-      function prompt() {
-        var txt = 'amine # ';
-        $('#hist').append(txt);
-      }
-      
-      function name() {
-        var txt = 'Amine KABAB </br>';
-        $('#hist').append(txt);
-      }
-  
-      function age() {
-        var birthday = new Date('1993-1-4');
-        var txt = (new Date()).getFullYear() - birthday.getFullYear();
-        $('#hist').append(txt + '</br>');
-      }
-
-      function error() {
-        var txt = 'Command not found ( try help command ) </br>';
-        $('#hist').append(txt);
-      }
-
-      function skills() {
-        var txt = '</br>Languages : C, C++, Python, JAVA </br>' +
-            'Web technologies : PHP, Javascript, CSS, HTML5 </br>' +
-            'Frameworks : jQuery, Angular.js, Express, Laravel </br>' +
-            'Platforms : Nodejs, JavaEE </br>' +
-            'DBMS : MySQL, Oracle, MongoDB </br>' +
-            'Operting system : Linux (Ubuntu), Windows </br>' +
-            'Modelisation : UML, Merise </br>' +
-            'Networking : OSI, Static and dynamic routing </br></br>';
-        
-        $('#hist').append(txt);    
-      }
-
-      init();
     </script>
   </body>
 </html>
