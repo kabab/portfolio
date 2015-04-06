@@ -12,7 +12,7 @@
         font-family: "Courier";
       }
 
-      #terminal {
+      .console {
         position: absolute;
         overflow: hidden;
         width: 600px;
@@ -20,7 +20,7 @@
         left: 0px;
       }
       
-      #tty input {
+      .console input {
         height: 20px;
         position: absolute;
         top: -25px;
@@ -35,7 +35,7 @@
         outline: none;
       }
       
-      #window {
+      .terminal {
         overflow: hidden;
         position: relative;
         height: 316px;
@@ -44,28 +44,30 @@
         margin-left: auto;
       }
       
-      #tty {
+      .console .tty {
         position: relative;
       }
       
     </style>
   </head>
   <body>
-      <div id="window">
-        <div id="terminal">
-          <div id="hist">amine # </div>
-          <div id="tty">
-            <input type="text" id="cmd">
-          </div>
+    <!-- <div id="window">
+      <div id="terminal">
+        <div id="hist">amine # </div>
+        <div id="tty">
+          <input type="text" id="cmd">
         </div>
       </div>
+    </div> -->
+    
+    <div id="terminal"></div>
+    
+    <!--
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    -->
     <script src="js/terminal.js"></script>
     <script>
-      $(document).ready(function() {
-        $('#cmd').focus();
-      });
     </script>
   </body>
 </html>

@@ -9,50 +9,158 @@ function init() {
   cmds['skills'] = skills;
   cmds['education'] = education;
   cmds['exper'] = exper;
+  cmds['blog'] = blog;
+  
 }
 
-$('#cmd').keypress(function(e) {
-  if( e.which == 13) {
-   analyzeCmd();
+
+function Terminal(id) {
+  if( typeof document.getElementById(id) === undefined) {
+    throw new Error('Undefined object');
   }
-});
+  this.histMax = 100;
+  this.histPos = 0;
+  this.histroy = [];
+  this._prompt = 'amine # ';
+  this.domObj = document.getElementById(id);
+  this.cmds = {};
+  this.init();
+}
 
-function analyzeCmd() {
-  var cmd = $('#cmd').val();
-  $('#hist').append(cmd + '</br>'); 
+Terminal.prototype.init = function() {
+  var txt = '<div class="console">' +
+      '<div class="history">' + this._prompt + '</div>' +
+      '<div class="tty">' + 
+      '<input type="text">' +
+      '</div></div>';
 
-  if(cmd.trim() == '') {
-    prompt();
-    return;
+  this.domObj.className += ' terminal';
+  this.domObj.innerHTML = txt;
+  this.stdin = this.domObj.getElementsByTagName('input')[0];
+  this.stdout = this.domObj.getElementsByClassName('history')[0];
+  var o = this;
+	
+	
+	if(typeof window != undefined ) {
+		window.onload = function() {
+			o.stdin.focus();
+		}
+	}
+	
+  function keyHandler(e) {
+    switch(e.which) {
+      case 13:
+        analyzeCmd();
+        break;
+      case 9:
+        e.preventDefault();
+        break;
+      case 38:
+        historyUp();
+        break;
+      case 40:
+        historyDown();
+        break;
+      case 13:
+        analyzeCmd();
+        break;
+    }
+  }
+  
+  var analyzeCmd = function () {
+    var cmd = o.stdin.value.trim();
+    var options = cmd.split(' ');
+    
+    o.histroy.push(cmd);
+    o.histPos = o.histroy.length;
+    
+    o.stdin.value = '';
+    o.writeln(cmd);
+		
+		if(cmd.length != 0) {
+			if(typeof o.cmds[cmd] == 'undefined') {
+				defaultError();
+			} else { 
+				o.cmds[cmd](o);
+			}
+		}
+    o.write(o._prompt)
+  };
+
+  var defaultError = function () {
+    o.writeln('Command not found (try help)');
+  }
+  
+  var historyUp = function () {
+    if(o.histPos <= 0) return;
+    o.histPos--;
+    o.stdin.value = o.histroy[o.histPos];
+  };
+  
+  var historyDown = function() {
+    if(o.histPos >=  o.histroy.length - 1) return;
+    o.histPos++;
+    o.stdin.value = o.histroy[o.histPos];
+  };
+  
+  this.stdin.addEventListener('keydown', function(e) {
+    keyHandler(e);
+  });
+
+};
+
+
+Terminal.prototype.write = function(str) {
+  console.log(str);
+  str = str.replace('\n', '</br>');
+  this.stdout.innerHTML += str;
+}
+
+Terminal.prototype.writeln = function(str) {
+  this.write(str + '\n');
+}
+
+Terminal.prototype.register = function(func, callback) {
+  if(func === '' || typeof this.cmds[func] != 'undefined' ) {
+    throw Error ('Error when registering a command '+ func);
   }
 
-  if(cmds[cmd.trim()] == undefined ) {
-    error();
-  } else {
-    (cmds[cmd.trim()])();
-  }
-
-  prompt();
-  $('#cmd').val('');
+  this.cmds[func] = callback;
 }
 
-function help() {
-  var txt = '</br>This is the help for this simple terminal.' +
-      'You can try some of this command to discovre more about my profile<br/><br>' + 
-      'name age skills blog exper projects contact clear </br></br>';
-  $('#hist').append(txt);
+
+Terminal.prototype.clear = function() {
+	this.stdout.innerHTML = '';
 }
 
-function clear() {
-  $('#hist').text('');
+
+function help(t) {
+  var txt = 'This is the help for this simple terminal.' +
+      ' You can try some of this command to discovre more about my profile<br/><br>';
+	
+	for(var cmd in t.cmds) {
+		txt += ' ' + cmd;
+	}
+	
+	t.writeln(' ');
+	t.writeln(txt);
+	t.writeln(' ');
 }
 
-function exper() {
+function blog() {
+  location.href = '/blog';
+}
+
+function clear(t) {
+	t.clear();
+}
+
+function exper(t) {
   var txt = '</br>April 2013 : Two months internship, application developer for ' +
       'Hassan II university, Science college</br></br>' +
       'June 2012 : One month internship Application developer for ' +
       'SAMIR company at Mohammedia, Morocco </br></br>';
-  $('#hist').append(txt);
+  t.write(txt);
 }
 
 function education() {
@@ -60,31 +168,26 @@ function education() {
       'the Faculty of Science and Technique Mohammedia, Morocco </br>' +
       '2011 - 2013 : DUT in Computer Science, Software Engineering at' +
       ' the School of Technology Berrechid, Morocco </br></br>';
-  $('#hist').append(txt);
+  t.write(txt);
 }
 
-function prompt() {
-  var txt = 'amine # ';
-  $('#hist').append(txt);
-}
-
-function name() {
+function name(t) {
   var txt = 'Amine KABAB </br>';
-  $('#hist').append(txt);
+  t.write(txt);
 }
 
-function age() {
+function age(t) {
   var birthday = new Date('1993-1-4');
-  var txt = (new Date()).getFullYear() - birthday.getFullYear();
-  $('#hist').append(txt + '</br>');
+  var txt = ((new Date()).getFullYear() - birthday.getFullYear()) + '\n';
+  t.writeln(txt);
 }
 
-function error() {
+function error(t) {
   var txt = 'Command not found ( try help command ) </br>';
-  $('#hist').append(txt);
+  t.write(txt);
 }
 
-function projects() {
+function projects(t) {
   var txt = '</br>Languages : C, C++, Python, JAVA </br>' +
       'Web technologies : PHP, Javascript, CSS, HTML5 </br>' +
       'Frameworks : jQuery, Angular.js, Express, Laravel </br>' +
@@ -93,10 +196,10 @@ function projects() {
       'Operting system : Linux (Ubuntu), Windows </br>' +
       'Modelisation : UML, Merise </br>' +
       'Networking : OSI, Static and dynamic routing </br></br>';
-  
+  t.write(txt);
 }
 
-function skills() {
+function skills(t) {
   var txt = '</br>Languages : C, C++, Python, JAVA </br>' +
       'Web technologies : PHP, Javascript, CSS, HTML5 </br>' +
       'Frameworks : jQuery, Angular.js, Express, Laravel </br>' +
@@ -105,7 +208,18 @@ function skills() {
       'Operting system : Linux (Ubuntu), Windows </br>' +
       'Modelisation : UML, Merise </br>' +
       'Networking : OSI, Static and dynamic routing </br></br>';
-  $('#hist').append(txt);    
+  t.write(txt);
 }
 
-init();
+// init();
+
+var ter = new Terminal('terminal');
+
+ter.register('skills', skills);
+ter.register('projects', projects);
+ter.register('name', name);
+ter.register('age', age);
+ter.register('exper', exper);
+ter.register('help', help);
+ter.register('blog', blog);
+ter.register('clear', clear);
