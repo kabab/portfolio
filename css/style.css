@@ -1,0 +1,151 @@
+@font-face {
+    font-family: essays1743;
+    src: url(../font/Essays1743.woff);
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+  color: #333;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  line-height: normal;
+}
+
+p {
+  margin-top: 5px;
+}
+
+body {
+  background: #fdfdfd;
+  color: #555;
+  font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
+}
+
+header {
+  position: relative;
+  width: 770px;
+  margin: auto;
+  height: 100px;
+}
+
+.pull-left {
+  font-size: 30px;
+  position: absolute;
+  font-weight: lighter;
+  color: #444;
+  left: 0px;
+  padding: 0px;
+  margin: 0px;
+  line-height: 100px;
+}
+
+.pull-right {
+  position: absolute;
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
+  line-height: 100px;
+}
+
+.sep {
+  height: 30px;
+  width: 90%;
+  margin: 130px auto;
+  border-bottom: 1px dotted #333;
+}
+
+
+
+/*
+.firstcharacter {
+  float: left;
+  color: #333;
+  font-size: 75px;
+  line-height: 50px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  font-family: Georgia;
+}
+*/
+
+.head-menu a {
+  font-weight: lighter;
+  padding: 10px 0;
+  font-size: 20px;
+  color: #222;
+  margin: 0px 15px;
+  text-decoration: none;
+}
+
+.head-menu a:hover {
+  border-bottom: 2px dotted #555;
+}
+
+.content {
+  width: 770px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.about {
+  font-size: 23px;
+  text-align: justify;
+}
+
+.projects {
+  margin-top: 50px;
+
+}
+
+.project h2 {
+  font-size: 30px;
+  text-align: center;
+}
+
+article {
+  font-size: 20px;
+  color: #111;
+}
+
+pre {
+  color: #222;
+  padding: 10px 5px;
+  background: #ddd;
+}
+
+@media only screen and (max-width: 780px) {
+  header {
+    width: 100%;
+  }
+
+  .pull-left {
+    width: 100%;
+    text-align: center;
+    position: static;
+    border-bottom: 1px solid #222;
+    margin-bottom: 20px;
+    float: none;
+  }
+
+  .pull-right a {
+    width: 25%;
+    float: left;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .pull-right  {
+    position: static;
+    float: none;
+    line-height: normal;
+    background: red;
+    width: 100%;
+  }
+  .content {
+    width: 85%;
+    margin: auto;
+    margin-top: 100px;
+  }
+}

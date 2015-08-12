@@ -1,73 +1,88 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
     <title></title>
-    <style media="screen">
-      body {
-        margin:0;
-        padding:0;
-        background: black;
-        color: #00cc00;
-        font-size: 20px;
-        font-family: "Courier";
-      }
-
-      .console {
-        position: absolute;
-        overflow: hidden;
-        width: 600px;
-        bottom: 0px;
-        left: 0px;
-      }
-      
-      .console input {
-        height: 20px;
-        position: absolute;
-        top: -25px;
-        left: 95px;
-        width: 500px;      
-        font-size: 20px;
-        /*backface-visibility: black;*/
-        color: #00cc00;
-        background: black;
-        border: 0px black solid;
-        font-family: "Courier";
-        outline: none;
-      }
-      
-      .terminal {
-        overflow: hidden;
-        position: relative;
-        height: 316px;
-        width: 70%;
-        margin-top: 80px;
-        margin-left: auto;
-      }
-      
-      .console .tty {
-        position: relative;
-      }
-      
-    </style>
   </head>
   <body>
-    <!-- <div id="window">
-      <div id="terminal">
-        <div id="hist">amine # </div>
-        <div id="tty">
-          <input type="text" id="cmd">
+    <header>
+        <div class="pull-left">AMINE KABAB</div>
+        <div class="pull-right head-menu">
+          <div>
+            <a href="blog">Blog</a>
+            <a href="https://github.com/kabab">github</a>
+            <a href="https://www.linkedin.com/profile/view?id=159442420">linkedin</a>
+            <a href="https://twitter.com/aminekabab">twitter</a>
+          </div>
+        </div>
+    </header>
+    <div class="content">
+      <div class="about">
+        <h1>About</h1>
+        <p><span class="firstcharacter">H</span>ey there! I am a software engineering student, I'm always seeking for projects,
+        challenges to work on them, from the designing to the maintaining phase.
+        My two favorite languages are C++ (for OO paradigm and low-level control)
+        and Javascript (Event-driven architecuture is amazing).</p>
+        <p>I am also a gamer, Rock music fan and a movie addict.</p>
+        <p>
+          If you like to check my resume you can request it from here :
+          <a href="mailto:kabab1993@gmail.com">Resume</a>
+        </p>
+      </div>
+      <div class="projects">
+        <div class="sep"></div>
+        <h1>Portfolio</h1>
+        <div class="project" style="position: relative">
+          <h2>Qr-cairo</h2>
+          <a href="https://github.com/kabab/qr-cairo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+          <article>
+            <center><img src="img/test.png"/></center>
+            <p>Another <a href="https://en.wikipedia.org/wiki/QR_code">QR code</a>
+              library for nodejs, aiming at allowing more customization on your
+              QR code result like changing background or changing code color
+              (still needs some work).</p>
+            <p>This library is based on the native Cairo and libqrencode library,
+               so as requirements you should have this two libraries installed
+               on your OS :</p>
+            <ul>
+              <li><a href="http://www.cairographics.org/download/">Cairo library</a></li>
+              <li><a href="https://fukuchi.org/works/qrencode/"> libqrencode </a></li>
+            </ul>
+            <h3>Installation</h3>
+            <p>Use npm</p>
+            <pre>npm install qr-cairo</pre>
+            <h3>Usage</h3>
+            <pre>
+var qr_cairo = require('qr-cairo');
+
+// Qr with options
+var options = {
+               'ec_level': 'l',
+               'box_size': '20',
+               'back_color': '#ee4444',
+               'fill_color': '#222200'
+              };
+
+qr_cairo.save("Amine", "test2.png", options);
+            </pre>
+            <h3>Roadmap</h3>
+            <p>This is a list of some features that I would like to add it to the library </p>
+            <ul>
+              <li>Option to chose cercles or triangle instead of squares</li>
+              <li>Change the alpha color parameter</li>
+              <li>Add some unit tests</li>
+              <li>Support SVG and other format if possible</li>
+              <li>Async save method</li>
+            </ul>
+          </article>
+        </div>
+        <div class="sep"></div>
+        <div class="project">
+
         </div>
       </div>
-    </div> -->
-    
-    <div id="terminal"></div>
-    
-    <!--
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    -->
-    <script src="js/terminal.js"></script>
-    <script>
-    </script>
+    </div>
   </body>
 </html>
